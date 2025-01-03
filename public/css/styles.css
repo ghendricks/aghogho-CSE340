@@ -5,6 +5,48 @@
   box-sizing: border-box;
 }
 
+/* Partials */
+#top-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+#top-header .siteName {
+  font-size: 3.5em;
+  font-weight: bold;
+}
+
+#top-header #tools > a {
+  font-size: 1.5em;
+  font-weight: bold;
+  font-family:'Courier New', Courier, monospace;
+}
+
+#top-header .siteName > a, #top-header #tools > a {
+  text-decoration: none;
+  color: black;
+}
+
+nav ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  background-color: black;
+  color: whitesmoke;
+}
+
+ul li {
+  list-style-type: none;
+  padding: 20px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-weight: bold;
+  font-size: larger;
+}
+
+
+/* Index */
 html {
   background-image: url("/images/site/small_check.jpg");
 }
@@ -18,33 +60,104 @@ body {
   border-radius: 10px;
 }
 
-section > div {
+#section-one > div {
   color: skyblue;
   position: relative;
 }
 
-section > div > img {
+#section-one > div > img {
   width: 90%;
   display: block;
 }
 
-section > div > div> p > span {
+#section-one > div > div> p > span {
   font-size: 1.1em;
   font-weight: bold;
 }
 
-section > div > div {
+#section-one > div > div {
   position: absolute;
-  top: 5%;
-  left: 5%;
-  background-color: rgba(255, 255, 255, 0.5);
+  top: 20%;
+  left: 8%;
+  background-color: rgba(255, 255, 255, 0.8);
   padding: 10px;
   width: max-content;
   max-width: 50%;
 }
 
-section > div > div > img {
+#section-one > div > div > img {
   width: 40%;
   display: block;
 }
 
+#section-two {
+  display: flex;
+  justify-content: space-around;
+  gap: 2%;
+}
+
+#section-two > div {
+  flex: 1;
+}
+
+#upgrades {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#upgrades > figure {
+  display: flex;
+  flex-direction: column; 
+  justify-content: center; 
+  align-items: center; 
+  flex: 1 1 30%;
+  flex-wrap: wrap;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: lightskyblue;
+  text-align: center;
+}
+
+#upgrades > figure > img {
+  display: block;
+  flex: 1;
+  margin: 0 auto;
+}
+
+#upgrades > figure > figcaption {
+  text-decoration: underline;
+  color: blue;
+}
+
+#reviews ul li {
+  font-weight: initial;
+  font-size: initial;
+  list-style-type: initial;
+  padding: 10px;
+  text-align: initial;
+}
+
+
+@media (max-width: 600px) {
+  
+  #section-two {
+    flex-direction: column;
+  }
+
+  #section-one > div > div { 
+    width: 90%;
+    max-width: 50%;
+  }
+
+  #section-one {
+    font-size: calc(0.8 * 1rem);
+  }
+
+  #section-one > div > div> p > span {
+    font-size: calc(0.8 * 1.1rem);
+    font-weight: bold;
+  }
+
+}
