@@ -139,6 +139,13 @@ body {
   text-align: initial;
 }
 
+#inv-display {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
 
 @media (max-width: 600px) {
   
