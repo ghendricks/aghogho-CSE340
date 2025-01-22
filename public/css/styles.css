@@ -146,6 +146,30 @@ body {
   flex-wrap: wrap;
 }
 
+.deliver-display {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  gap: 2%;
+}
+
+.deliver-bold {
+  font-weight: bold;
+}
+
+.deliver-bold div:last-child {
+  word-wrap: break-word;
+  overflow: hidden;
+  max-width: 100%;
+
+}
+
+/* .deliver-display img {
+  max-width: 100%;
+  height: auto;
+} */
+
 
 @media (max-width: 600px) {
   
@@ -165,6 +189,15 @@ body {
   #section-one > div > div> p > span {
     font-size: calc(0.8 * 1.1rem);
     font-weight: bold;
+  }
+
+  .deliver-display {
+    flex-direction: column;
+  }
+
+  .deliver-display img {
+    width: 100%;
+    height: auto;
   }
 
 }

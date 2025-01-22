@@ -69,4 +69,37 @@ Util.handleErrors = fn => (req, res, next) =>
         .catch(next)
 
 
+
+/**
+ * Build Detail
+ */
+
+Util.buildDetail = async function(data) {
+
+    let grid;
+    const vehicle = data[0]
+
+
+    if (data.length != 0) {
+        grid = '<div class="deliver-display">'
+        grid += '<div>'
+        grid += '<img src="' + vehicle.inv_image
+            + '"alt="Image of ' + vehicle.inv_make + ' ' + vehicle.inv_model 
+            + ' on CSE Motors" />'
+        grid += '</div>'
+        grid += '<div>'
+        grid += '<h2>' + vehicle.inv_make + ' ' + vehicle.inv_model + ' Details</h2>'
+        grid += '<p class="deliver-bold">Price: $' + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</p>'
+        grid += '<p><span class="deliver-bold">Description:</span> ' + vehicle.inv_description + '</p>'
+        grid += '<p><span class="deliver-bold">Color:</span> ' + vehicle.inv_color + '</p>'
+        grid += '<p><span class="deliver-bold">Miles:</span> ' + vehicle.inv_miles + '</p>'
+        grid += '</div>'
+        grid += '</div>'
+    } else {
+        grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
+    }
+
+    return grid
+}
+
 module.exports = Util
