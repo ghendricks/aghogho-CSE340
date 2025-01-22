@@ -170,6 +170,11 @@ body {
   height: auto;
 } */
 
+nav ul li a {
+  text-decoration: none;
+}
+
+
 
 @media (max-width: 600px) {
   
