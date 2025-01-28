@@ -92,7 +92,7 @@ Util.buildDetail = async function(data) {
         grid += '<p class="deliver-bold">Price: $' + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</p>'
         grid += '<p><span class="deliver-bold">Description:</span> ' + vehicle.inv_description + '</p>'
         grid += '<p><span class="deliver-bold">Color:</span> ' + vehicle.inv_color + '</p>'
-        grid += '<p><span class="deliver-bold">Miles:</span> ' + vehicle.inv_miles + '</p>'
+        grid += '<p><span class="deliver-bold">Miles:</span> ' + vehicle.inv_miles.toLocaleString('en-US') + '</p>'
         grid += '</div>'
         grid += '</div>'
     } else {
