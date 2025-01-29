@@ -180,8 +180,74 @@ nav a:visited {
 }
 
 nav a:hover {
-  background-color: lightcoral;
+  color: lightskyblue;
 }
+
+#login-signup {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  padding: 2rem;
+  
+}
+
+#login-signup-form {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  border-radius: 12px;
+  width: 40%;
+  max-width: 350px;
+}
+
+.form-element {
+  display: block;
+  text-align: left;
+  font-weight: bold;
+  margin-bottom: 5px;
+
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: 0.3s ease;
+}
+
+#login-button {
+  /* display: block;
+  margin-top: 5px; */
+  width: 100%;
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 12px;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  /* max-width: 350px; */
+}
+
+#login-button:hover {
+  background-color: #0056b3;
+}
+
+.form-element {
+  font-size: large;
+  font-weight: bold;
+}
+
+#tools a:hover {
+  color: #007bff !important;
+}
+
+
 
 
 @media (max-width: 600px) {
