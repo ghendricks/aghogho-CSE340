@@ -1,6 +1,6 @@
 const showHideBtn = document.querySelector("#show-hide");
 showHideBtn.addEventListener("click", () => {
-    const pwInput = document.querySelector("#pwreg");
+    const pwInput = document.querySelector("#account_password");
     const typeAttr = pwInput.getAttribute("type");
 
     if (typeAttr === "password") {
