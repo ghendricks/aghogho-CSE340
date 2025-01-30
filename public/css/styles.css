@@ -234,7 +234,24 @@ input {
   /* max-width: 350px; */
 }
 
-#login-button:hover {
+#register-button,
+#show-hide {
+  /* display: block;
+  margin-top: 5px; */
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 12px;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  /* max-width: 350px; */
+}
+
+#login-button:hover, 
+#register-button:hover, 
+#show-hide:hover {
   background-color: #0056b3;
 }
 

@@ -1,0 +1,30 @@
+<% if (title) { %>
+    <h1><%= title %></h1>
+  <% } else {
+      res.redirect('/')
+  } %>
+
+<%- messages() %>
+
+<section id="login-signup">
+
+    <form action="" id="login-signup-form" autocomplete="on">
+        <label for="fname"><span class="form-element">First Name:</span></label>
+        <input type="text" name="fname" id="fname" required>
+        <label for="lname"><span class="form-element">Last Name:</span></label>
+        <input type="text" name="lname" id="lname">
+        <label for="email"><span class="form-element">Email:</span></label>
+        <input type="email" name="email" id="email">
+        <label for="pwreg"><span class="form-element">Password:</span></label>
+        <input type="password" name="pwreg" id="pwreg" minlength="12" 
+        pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{12,}$" 
+        title="Password must be at least 12 characters, contain 1 uppercase letter, 1 number, and 1 special character."  
+        required>
+        <button type="submit" id="register-button">Register</button>
+        
+        <button id="show-hide" type="button">Show Password</button>
+    </form>
+
+</section>
+
+<script src="/js/script.js"></script>
