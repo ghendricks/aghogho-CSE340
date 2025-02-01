@@ -6,23 +6,28 @@
 
 <%- messages() %>
 
+
 <% if (errors) { %>
     <ul class="notice">
-        <% errors.array().forEach(error => { %>
-            <li><%= error.msg %></li>
-        <% }) %>
+        <% errors.array().forEach(error => { 
+            if (error.msg !== "Invalid value") { %>
+                <li><%= error.msg %></li>
+            <% } 
+        }) %>
     </ul>
 <% } %>
+
+
 
 <section id="login-signup">
 
     <form action="/account/register" id="login-signup-form" autocomplete="on" method="post">
         <label for="account_firstname"><span class="form-element">First Name:</span></label>
-        <input type="text" name="account_firstname" id="account_firstname" required>
+        <input type="text" name="account_firstname" id="account_firstname" required value="<%= locals.account_firstname %>">
         <label for="account_lastname"><span class="form-element">Last Name:</span></label>
-        <input type="text" name="account_lastname" id="account_lastname" required>
+        <input type="text" name="account_lastname" id="account_lastname" required value="<%= locals.account_lastname %>">
         <label for="account_email"><span class="form-element">Email:</span></label>
-        <input type="email" name="account_email" id="account_email" required>
+        <input type="email" name="account_email" id="account_email" required value="<%= locals.account_email %>">
         <div id="pswd-box">
             <label for="account_password"><span class="form-element">Password:</span></label>
             <span id="pswd-text">Password must be at least 12 characters, contain 1 uppercase letter, 1 number, and 1 special character</span>

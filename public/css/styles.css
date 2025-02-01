@@ -35,7 +35,7 @@ nav ul {
   color: whitesmoke;
 }
 
-ul li {
+nav ul li {
   list-style-type: none;
   padding: 20px;
   justify-content: center;
@@ -264,6 +264,10 @@ input {
   color: #007bff !important;
 }
 
+
+.notice li {
+  color: red;
+}
 
 
 

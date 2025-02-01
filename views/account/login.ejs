@@ -6,15 +6,25 @@
 
 <%- messages() %>
 
+<% if (errors) { %>
+    <ul class="notice">
+        <% errors.array().forEach(error => { 
+            if (error.msg !== "Invalid value") { %>
+                <li><%= error.msg %></li>
+            <% } 
+        }) %>
+    </ul>
+<% } %>
+
 <section id="login-signup">
 
-    <form action="" id="login-signup-form">
-        <label for="email"><span class="form-element">Email:</span></label>
-        <input type="email" name="email" id="email" required>
+    <form action="/account/login" id="login-signup-form" method="post">
+        <label for="account_email"><span class="form-element">Email:</span></label>
+        <input type="email" name="account_email" id="account_email" required>
         <div id="pswd-box">
-            <label for="password"><span class="form-element">Password:</span></label>
+            <label for="account_password"><span class="form-element">Password:</span></label>
             <span id="pswd-text">Password must be at least 12 characters, contain 1 uppercase letter, 1 number, and 1 special character</span>
-            <input type="password" name="password" id="password" 
+            <input type="password" name="account_password" id="account_password" 
             pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"
             title="Password must be at least 12 characters, contain 1 uppercase letter, 1 number, and 1 special character."
             required>

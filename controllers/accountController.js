@@ -47,6 +47,7 @@ async function registerAccount(req, res) {
         res.status(201).render("account/login", {
             title: "Login",
             nav,
+            errors: null,
         })
     } else {
         req.flash(
@@ -60,4 +61,35 @@ async function registerAccount(req, res) {
 }
 
 
-module.exports = { buildLogin, buildRegister, registerAccount }
+/**
+ * Process login
+ */
+async function processLogin(req, res) {
+    let nav = await utilities.getNav()
+    const { account_email, account_password } = req.body
+
+    const loginResult = await accountModel.checkAccountPassword(account_email, account_password)
+
+    if (loginResult) {
+        req.flash(
+            "notice", "Welcome Back! Login was successful!"
+        )
+        res.status(201).render("index", {
+            title: "Home",
+            nav,
+        })
+    } else {
+        req.flash(
+            "notice", "Unauthorized access. Wrong email or password"
+        )
+        res.status(401).render("account/login", {
+            title: "Login",
+            nav,
+            errors: null,
+        })
+    }
+}
+
+
+
+module.exports = { buildLogin, buildRegister, registerAccount, processLogin }
