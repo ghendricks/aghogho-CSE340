@@ -1,4 +1,5 @@
 const pool = require("../database/")
+const bcrypt = require("bcryptjs")
 
 
 /**
@@ -31,10 +32,21 @@ async function checkAccountPassword(account_email, account_password)  {
     try {
         const sql = "SELECT * FROM account WHERE account_email = $1"
         const password = await pool.query(sql, [account_email])
-        return password.rows[0].account_password === account_password
+        return bcrypt.compareSync(account_password, password.rows[0].account_password)
     } catch (error) {
         return error.message
     }
 }
 
-module.exports = { registerAccount, checkExistingEmail, checkAccountPassword }
+
+async function getUserInfo(account_email) {
+    try {
+        const sql = "SELECT * FROM account WHERE account_email = $1"
+        const userInfo = await pool.query(sql, [account_email])
+        return userInfo.rows
+    } catch (error) {
+        return error.message
+    }
+}
+
+module.exports = { registerAccount, checkExistingEmail, checkAccountPassword, getUserInfo }
