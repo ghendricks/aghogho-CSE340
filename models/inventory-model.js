@@ -60,6 +60,51 @@ async function insertClassificationName(classification_name) {
     }
 }
 
+/**
+ * Insert InvFormData into inventory table
+ */
+async function insertInvFormData(
+    inv_make, inv_model, inv_year, inv_description, inv_image, 
+    inv_thumbnail, inv_price, inv_miles, inv_color, classification_id) {
+    try {
+        const result = await pool.query(
+            `INSERT INTO public.inventory 
+            (inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail,
+            inv_price, inv_miles, inv_color, classification_id)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+            RETURNING *`,
+            [inv_make, inv_model, inv_year, inv_description, inv_image,
+            inv_thumbnail, inv_price, inv_miles, inv_color, classification_id
+            ]
+        )
+
+        console.log("Inside InsertInvFormData")
+        console.log(result.rows)
+
+        return result.rows[0]
+    } catch (error) {
+        console.error("Error inserting InvFormData: " + error)
+    }
+}
 
 
-module.exports = { getClassifications, getInventoryByClassificationId, getInventoryByInventoryId, insertClassificationName }
+/**
+ * Get joined inventory and classification table
+ */
+async function inventoryClassificationTable() {
+    try {
+        const data = await pool.query(
+            `SELECT * FROM public.inventory AS i
+            JOIN public.classification as c
+            USING (classification_id);`
+        )
+
+        return data.rows;
+    } catch (error) {
+        console.error("Error getting inventoryClassification table " + error)
+    }
+}
+
+
+
+module.exports = { getClassifications, getInventoryByClassificationId, getInventoryByInventoryId, insertClassificationName, inventoryClassificationTable, insertInvFormData }

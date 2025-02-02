@@ -22,4 +22,11 @@ router.post("/add-classification",
     utilities.handleErrors(invController.processAddClassification)
 )
 
+router.get("/add-inventory", utilities.handleErrors(invController.buildInventoryForm))
+
+router.post("/add-inventory", 
+    classValidate.insertDataRules(),
+    classValidate.checkInsertData,
+    utilities.handleErrors(invController.processAddInventory))
+
 module.exports = router;

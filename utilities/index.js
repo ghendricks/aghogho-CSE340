@@ -102,4 +102,71 @@ Util.buildDetail = async function(data) {
     return grid
 }
 
+
+/**
+ * Create add inventory form
+ */
+Util.buildAddInvForm = async function() {
+
+    let addInvForm;
+    let data = await invModel.getClassifications()
+    console.log("buildAddInvForm data")
+    console.log("Data length", data.rows.length)
+    console.log(data)
+    
+    if (data.rows.length > 0) {
+
+        addInvForm = '<section id="inv-class">'
+
+        addInvForm += '<form id="inv-class-form" action="/inv/add-inventory" method="post">'
+
+        addInvForm += '<label for="inv_make"><span class="form-element">Inventory Make:</span></label>'
+        addInvForm += '<input type="text" id="inv_make" name="inv_make" required>'
+
+        addInvForm += '<label for="inv_model"><span class="form-element">Inventory Model:</span></label>'
+        addInvForm += '<input type="text" id="inv_model" name="inv_model" required>'
+
+        addInvForm += '<label for="inv_year"><span class="form-element">Inventory Year:</span></label>'
+        addInvForm += '<input type="text" id="inv_year" name="inv_year" minlength="4" maxlength="4" placeholder="2008" required>'
+
+        addInvForm += '<label for="inv_description"><span class="form-element">Inventory Decription:</span></label>'
+        addInvForm += '<textarea id="inv_description" name="inv_description" rows="5" cols="40" required></textarea>'
+
+        addInvForm += '<label for="inv_image"><span class="form-element">Inventory Image:</span></label>'
+        addInvForm += '<input type="text" id="inv_image" name="inv_image" value="/images/vehicles/no-image.png" required>'
+
+        addInvForm += '<label for="inv_thumbnail"><span class="form-element">Inventory Thumbnail:</span></label>'
+        addInvForm += '<input type="text" id="inv_thumbnail" name="inv_thumbnail" value="/images/vehicles/no-image-tn.png" required>'
+
+        addInvForm += '<label for="inv_price"><span class="form-element">Inventory Price:</span></label>'
+        addInvForm += '<input type="number" id="inv_price" name="inv_price" required>'
+        
+        addInvForm += '<label for="inv_miles"><span class="form-element">Inventory Miles:</span></label>'
+        addInvForm += '<input type="number" id="inv_miles" name="inv_miles" required>'
+
+        addInvForm += '<label for="inv_color"><span class="form-element">Inventory Color:</span></label>'
+        addInvForm += '<input type="text" id="inv_color" name="inv_color" required>'
+
+        addInvForm += '<label for="classification_id"><span class="form-element">Classification Type:</span></label>'
+        addInvForm += '<select id="classification_id" name="classification_id" required>'
+        data.rows.forEach((row) => {
+            addInvForm += '<option value=' + row.classification_id + '>' + row.classification_name + '</option>'  
+        })
+        addInvForm += '</select>'
+
+        addInvForm += '<button type="submit" id="inv-class-button">Add Inventory</button>'
+
+        addInvForm += '</form>'
+
+        addInvForm += '</section>'
+
+        return addInvForm
+
+
+    }
+
+
+}
+
+
 module.exports = Util

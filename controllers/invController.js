@@ -121,6 +121,82 @@ invCont.processAddClassification = async function(req, res) {
     }
 }
 
+/**
+ * 
+ */
+invCont.buildInventoryForm = async function(req, res, next) {
+    
+    const nav = await utilities.getNav()
+    const addInvForm = await utilities.buildAddInvForm()
 
+    console.log("AddInvForm", addInvForm)
+
+    res.render("./inventory/add-inventory", {
+        title: "Add Inventory",
+        nav,
+        addInvForm,
+        errors: null,
+    })
+}
+
+
+/**
+ * Process Add Inventory
+ */
+invCont.processAddInventory = async function(req, res) {
+
+    console.log("Req body in process Add Inventory")
+    console.log(req.body)
+    console.log("\n\n")
+
+    const { inv_make, inv_model, inv_year, inv_description, inv_image, 
+        inv_thumbnail, inv_price, inv_miles, inv_color, classification_id } = req.body
+
+    
+    console.log("Classification id inside processAddInventory: " + classification_id)
+
+    let nav = await utilities.getNav()
+
+    try {
+
+        console.log("WAS HERE")
+        const insertIntoInv = invModel.insertInvFormData(
+            inv_make, inv_model, inv_year, inv_description, inv_image, 
+            inv_thumbnail, inv_price, inv_miles, inv_color, classification_id
+        )
+
+        console.log("WASN'T HERE")
+
+        console.log("INSERTED INTO INV TABLE OK OK")
+        console.log(insertIntoInv)
+
+        req.flash(
+            "notice", "The form was successfully processed"
+        )
+
+        res.render("./inventory/management", {
+            title: "Management",
+            nav,
+        })
+
+    } catch(error) {
+        req.flash(
+            "notice", "The form processing was unsuccessful"
+        )
+
+        const addInvForm = await utilities.buildAddInvForm()
+
+        res.render("./inventory/add-inventory", {
+            title: "Add Inventory",
+            nav,
+            addInvForm,
+            errors: null,
+        })
+    }
+
+
+    
+    
+}
 
 module.exports = invCont
