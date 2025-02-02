@@ -1,0 +1,37 @@
+<% if (title) { %>
+    <h1><%= title %></h1>
+  <% } else {
+      res.redirect('/')
+  } %>
+
+<%- messages() %>
+
+<% if (errors) { %>
+    <ul class="notice">
+        <% errors.array().forEach(error => { 
+            if (error.msg !== "Invalid value") { %>
+                <li><%= error.msg %></li>
+            <% } 
+        }) %>
+    </ul>
+<% } %>
+
+<section id="add-classification">
+    <form action="/inv/add-classification" id="add-classification-form" method="post">
+        <div>
+            <p>Classification Name must be <b>ALPHANUMERIC</b> characters only</p>
+            <label for="classification_name"><span class="form-element">Classification Name:</span></label>
+            <input 
+                type="text" 
+                name="classification_name" 
+                id="classification_name" 
+                pattern="^[a-zA-Z0-9]+$"
+                title="Classification name must not contain spaces or special characters."
+                required
+            >
+        </div>
+        
+        <button type="submit" id="add-class-button">Add Classification</button>
+    </form>
+</section>
+

@@ -183,7 +183,8 @@ nav a:hover {
   color: lightskyblue;
 }
 
-#login-signup {
+#login-signup,
+#add-classification {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -235,7 +236,8 @@ input {
 }
 
 #register-button,
-#show-hide {
+#show-hide,
+#add-class-button {
   /* display: block;
   margin-top: 5px; */
   background-color: black;
@@ -251,7 +253,8 @@ input {
 
 #login-button:hover, 
 #register-button:hover, 
-#show-hide:hover {
+#show-hide:hover,
+#add-class-button:hover {
   background-color: #0056b3;
 }
 
@@ -269,7 +272,15 @@ input {
   color: red;
 }
 
+#inv-mgmt ul li a{
+  text-decoration: none;
+  font-size: large;
+}
 
+#inv-mgmt ul li {
+  list-style: square;
+  padding: 3px;
+}
 
 @media (max-width: 600px) {
   
