@@ -66,7 +66,7 @@ invCont.processAddClassification = async function(req, res) {
     const { classification_name } = req.body 
     console.log("Classification Name: " + classification_name)
 
-    let nav = await utilities.getNav()
+    
 
     try {
 
@@ -82,18 +82,23 @@ invCont.processAddClassification = async function(req, res) {
             console.log("iNSERTED CLASS", insertClass)
             console.log("INSIDE GET CLASSES OK OK")
 
-            nav = await utilities.getNav()
+            let nav = await utilities.getNav()
 
             req.flash(
                 "notice", `The ${classification_name} Classification Name was added.`
             )
         
-            res.render("./inventory/management",  {
-                title: "Management",
-                nav,
-            })
+            // res.render("./inventory/management",  {
+            //     title: "Management",
+            //     nav,
+            // })
+
+            res.redirect("/inv/management")
 
         } else {
+
+            let nav = await utilities.getNav()  
+
             req.flash(
                 "notice", 
                 "The classification name is already present. Try another name."
