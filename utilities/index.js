@@ -211,7 +211,7 @@ Util.checkLogin = (req, res, next) => {
         next()
     } else {
         req.flash("notice", "Please log in.")
-        return res.redirect("/accounut/login")
+        return res.redirect("/account/login")
     }
 }
 
