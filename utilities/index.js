@@ -1,4 +1,9 @@
 const invModel = require("../models/inventory-model")
+const accountModel = require("../models/account-model")
+const jwt = require("jsonwebtoken")
+require("dotenv").config()
+
+
 const Util = {}
 
 /**
@@ -167,6 +172,61 @@ Util.buildAddInvForm = async function() {
 
 
 }
+
+
+
+
+/**
+ * Middleware to check token validity
+ */
+Util.checkJWTToken = (req, res, next) => {
+    if (req.cookies.jwt) {
+        jwt.verify(
+            req.cookies.jwt,
+            process.env.ACCESS_TOKEN_SECRET,
+            function (err, accountData) {
+                if (err) {
+                    req.flash("Please log in")
+                    res.clearCookie("jwt")
+                    return res.redirect("/account/login")
+                }
+
+                res.locals.accountData = accountData 
+                res.locals.loggedin = 1
+
+                next()
+            }
+        )
+    } else {
+        next()
+    }
+}
+
+
+/**
+ * Check Login
+ */
+Util.checkLogin = (req, res, next) => {
+    if (res.locals.loggedin) {
+        next()
+    } else {
+        req.flash("notice", "Please log in.")
+        return res.redirect("/accounut/login")
+    }
+}
+
+
+/**
+ * Build Account Management View
+ */
+Util.buildAccountManagementView = async function(account_email) {
+
+    const userData = await accountModel.getUserInfo(account_email)
+
+    return '<p>You are logged in, ' + userData[0].account_firstname + '!</p>'
+
+}
+
 
 
 module.exports = Util
