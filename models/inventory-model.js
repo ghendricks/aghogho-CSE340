@@ -99,7 +99,7 @@ async function inventoryClassificationTable() {
             USING (classification_id);`
         )
 
-        return data.rows;
+        return data.rows
     } catch (error) {
         console.error("Error getting inventoryClassification table " + error)
     }
