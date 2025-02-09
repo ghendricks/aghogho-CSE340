@@ -196,7 +196,8 @@ nav a:hover {
 }
 
 #login-signup-form,
-#inv-class-form {
+#inv-class-form,
+#select-class-form {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   padding: 15px;
   border-radius: 12px;

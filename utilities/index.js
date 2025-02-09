@@ -228,5 +228,35 @@ Util.buildAccountManagementView = async function(account_email) {
 }
 
 
+/**
+ * 
+ */
+Util.buildClassificationList = async function () {
+    
+    let addInvForm
+    let data = await invModel.getClassifications()
+
+    if (data.rows.length > 0) {
+
+        addInvForm = '<section id="select-class">'
+
+        addInvForm += '<form id="select-class-form" action="" method="">'
+
+        addInvForm += '<label for="select_classification_id"><span class="form-element">Select Classification Type:</span></label>'
+        addInvForm += '<select id="select_classification_id" name="select_classification_id" required>'
+        data.rows.forEach((row) => {
+            addInvForm += '<option value=' + row.classification_id + '>' + row.classification_name + '</option>'  
+        })
+        addInvForm += '</select>'
+
+        addInvForm += '</form>'
+
+        addInvForm += '</section>'
+
+        return addInvForm
+    }
+
+}
+
 
 module.exports = Util
