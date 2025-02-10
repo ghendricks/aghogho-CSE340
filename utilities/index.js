@@ -276,7 +276,10 @@ Util.buildEditInvForm = async function(itemData) {
 
         addInvForm = '<section id="inv-class">'
 
-        addInvForm += '<form id="inv-class-form" action="/inv/update" method="post">'
+        addInvForm += '<form id="inv-class-form" class="updateForm" action="/inv/update" method="post">'
+
+        addInvForm += '<label for="inv_id" class="hidden-label"><span class="form-element">Inventory Make:</span></label>'
+        addInvForm += `<input type="hidden" name="inv_id" value=${itemData.inv_id}>`
 
         addInvForm += '<label for="inv_make"><span class="form-element">Inventory Make:</span></label>'
         addInvForm += `<input type="text" id="inv_make" name="inv_make" required value=${itemData.inv_make}>`

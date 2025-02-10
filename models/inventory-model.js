@@ -106,5 +106,47 @@ async function inventoryClassificationTable() {
 }
 
 
+/**
+ * Update Inventory Data
+ */
+async function updateInventory (
+    inv_id,
+    inv_make,
+    inv_model,
+    inv_description,
+    inv_image,
+    inv_thumbnail,
+    inv_price,
+    inv_year,
+    inv_miles,
+    inv_color,
+    classification_id
+) {
 
-module.exports = { getClassifications, getInventoryByClassificationId, getInventoryByInventoryId, insertClassificationName, inventoryClassificationTable, insertInvFormData }
+    console.log("Inside Inv-Model Update Inventory")
+    console.log("Inv Id", inv_id, inv_make)
+    try {
+        const sql = "UPDATE public.inventory SET inv_make = $2, inv_model = $3, inv_description = $4, inv_image = $5, inv_thumbnail = $6, inv_price = $7, inv_year = $8, inv_miles = $9, inv_color = $10, classification_id = $11 WHERE inv_id = $1 RETURNING *"
+
+        const data = await pool.query(sql, [
+            inv_id,
+            inv_make,
+            inv_model,
+            inv_description,
+            inv_image,
+            inv_thumbnail,
+            inv_price,
+            inv_year,
+            inv_miles,
+            inv_color,
+            classification_id
+        ])
+
+        return data.rows[0]
+    } catch (error) {
+        console.error("model error: " + error)
+    }
+}
+
+
+module.exports = { getClassifications, getInventoryByClassificationId, getInventoryByInventoryId, insertClassificationName, inventoryClassificationTable, insertInvFormData, updateInventory }

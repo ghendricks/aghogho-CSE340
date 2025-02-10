@@ -253,5 +253,63 @@ invCont.buildEditInventory = async (req, res, next) => {
 }
 
 
+/**
+ * Update Inventory Data
+ */
+invCont.updateInventory = async function (req, res, next) {
+
+    req.body.inv_id = req.body.inv_id.replace("<label", "").replace("<label", "")
+
+    const {
+        inv_id, inv_make, inv_model, inv_description, inv_image,
+        inv_thumbnail, inv_price, inv_year, inv_miles, inv_color,
+        classification_id } = req.body
+
+    
+
+    console.log("Inventory Controller: Update iNVENTORY")
+    console.log(req.body)
+
+    const updateResult = await invModel.updateInventory(
+        inv_id, inv_make, inv_model, inv_description, inv_image,
+        inv_thumbnail, inv_price, inv_year, inv_miles, inv_color,
+        classification_id
+    )
+    console.log("Update result")
+    console.log(updateResult)
+
+    if (updateResult) {
+        const itemName = updateResult.inv_make + " " + updateResult.inv_model
+
+        req.flash("notice", `The ${itemName} was successfully updated.`)
+        res.redirect("/inv/")
+    } else {
+        
+        const nav = await utilities.getNav()
+        const editInvForm = await utilities.buildEditInvForm(req.body)
+
+        const itemName = `${inv_make} ${inv_model}`
+
+        res.render("./inventory/edit-inventory", {
+            title: "Edit " + itemName,
+            nav,
+            editInvForm: editInvForm,
+            errors: null,
+            inv_id,
+            inv_make,
+            inv_model,
+            inv_year,
+            inv_description,
+            inv_image,
+            inv_thumbnail,
+            inv_price,
+            inv_miles,
+            inv_color,
+            classification_id
+        })
+    }
+}
+
+
 
 module.exports = invCont

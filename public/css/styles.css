@@ -287,6 +287,12 @@ select {
   padding: 3px;
 }
 
+
+.hidden-label {
+  display: none;
+}
+
+
 @media (max-width: 600px) {
   
   #section-two {

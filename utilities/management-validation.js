@@ -1,7 +1,7 @@
 const utilities = require(".")
 const { body, validationResult } = require("express-validator")
 const validate = {}
-const accountModel = require("../models/inventory-model")
+const invModel = require("../models/inventory-model")
 
 /**
  * Classification name validation rule
@@ -131,6 +131,51 @@ validate.checkInsertData = async (req, res, next) => {
             title: "Add Inventory",
             nav,
             addInvForm,
+            inv_make, 
+            inv_model,
+            inv_year, 
+            inv_description, 
+            inv_image, 
+            inv_thumbnail, 
+            inv_price, 
+            inv_miles, 
+            inv_color, 
+            classification_id,
+        })
+
+        return
+    }
+    next()
+
+
+}
+
+
+validate.checkUpdateData = async (req, res, next) => {
+    
+    const {inv_id, inv_make, inv_model, inv_year, inv_description, inv_image, 
+    inv_thumbnail, inv_price, inv_miles, inv_color, classification_id } = req.body
+
+    let errors = []
+
+    errors = validationResult(req)
+
+    if (!errors.isEmpty()) {
+        // let nav = await utilities.getNav()
+        // const addInvForm = await utilities.buildAddInvForm()
+
+        inv_id = parseInt(inv_id)
+        const nav = await utilities.getNav()
+        const itemData = await invModel.getInventoryByInventoryId(inv_id)
+        const editInvForm = await utilities.buildEditInvForm(itemData[0])
+
+        const itemName = `${itemData[0].inv_make} ${itemData[0].inv_model}`
+
+        res.render("inventory/edit-inventory", {
+            title: "Edit " + itemName,
+            nav,
+            errors,
+            editInvForm: editInvForm,
             inv_make, 
             inv_model,
             inv_year, 
