@@ -259,4 +259,71 @@ Util.buildClassificationList = async function () {
 }
 
 
+
+/**
+ * Create add inventory form
+ */
+Util.buildEditInvForm = async function(itemData) {
+
+    console.log("\n\nEdit Inv Form")
+    console.log(itemData)
+    console.log("\n\n")
+
+    let data = await invModel.getClassifications()
+    let addInvForm;
+    
+    if (itemData && data.rows.length > 0) {
+
+        addInvForm = '<section id="inv-class">'
+
+        addInvForm += '<form id="inv-class-form" action="/inv/update" method="post">'
+
+        addInvForm += '<label for="inv_make"><span class="form-element">Inventory Make:</span></label>'
+        addInvForm += `<input type="text" id="inv_make" name="inv_make" required value=${itemData.inv_make}>`
+
+        addInvForm += '<label for="inv_model"><span class="form-element">Inventory Model:</span></label>'
+        addInvForm += `<input type="text" id="inv_model" name="inv_model" required value=${itemData.inv_model}>`
+
+        addInvForm += '<label for="inv_year"><span class="form-element">Inventory Year:</span></label>'
+        addInvForm += `<input type="text" id="inv_year" name="inv_year" minlength="4" maxlength="4" required value=${itemData.inv_year}>`
+
+        addInvForm += '<label for="inv_description"><span class="form-element">Inventory Decription:</span></label>'
+        addInvForm += `<textarea id="inv_description" name="inv_description" rows="5" cols="40" required>${itemData.inv_description}</textarea>`
+
+        addInvForm += '<label for="inv_image"><span class="form-element">Inventory Image:</span></label>'
+        addInvForm += '<input type="text" id="inv_image" name="inv_image" value="/images/vehicles/no-image.png" required>'
+
+        addInvForm += '<label for="inv_thumbnail"><span class="form-element">Inventory Thumbnail:</span></label>'
+        addInvForm += '<input type="text" id="inv_thumbnail" name="inv_thumbnail" value="/images/vehicles/no-image-tn.png" required>'
+
+        addInvForm += '<label for="inv_price"><span class="form-element">Inventory Price:</span></label>'
+        addInvForm += `<input type="number" id="inv_price" name="inv_price" required value=${itemData.inv_price}>`
+        
+        addInvForm += '<label for="inv_miles"><span class="form-element">Inventory Miles:</span></label>'
+        addInvForm += `<input type="number" id="inv_miles" name="inv_miles" required value=${itemData.inv_miles}>`
+
+        addInvForm += '<label for="inv_color"><span class="form-element">Inventory Color:</span></label>'
+        addInvForm += `<input type="text" id="inv_color" name="inv_color" required value=${itemData.inv_color}>`
+
+        addInvForm += '<label for="classification_id"><span class="form-element">Classification Type:</span></label>'
+        addInvForm += '<select id="classification_id" name="classification_id" required>'
+        data.rows.forEach((row) => {
+            let isSelected = row.classification_id === itemData.classification_id ? "selected" : "";
+            addInvForm += `<option value="${row.classification_id}" ${isSelected}>${row.classification_name}</option>` 
+        })
+        addInvForm += '</select>'
+
+        addInvForm += '<button type="submit" id="inv-class-button">Update Vehicle</button>'
+
+        addInvForm += '</form>'
+
+        addInvForm += '</section>'
+
+        return addInvForm
+
+
+    }
+}
+
+
 module.exports = Util

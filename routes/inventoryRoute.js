@@ -33,5 +33,6 @@ router.post("/add-inventory",
 
 
 
+router.get("/edit/:inv_id", utilities.handleErrors(invController.buildEditInventory))
 
 module.exports = router;
