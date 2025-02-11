@@ -1,0 +1,24 @@
+<% if (title) { %>
+    <h1><%= title %></h1>
+  <% } else {
+      res.redirect('/')
+  } %>
+  
+ 
+  <%- messages() %>
+ 
+  <% if (errors) { %>
+   <ul class="notice">
+       <% errors.array().forEach(error => { 
+           if (error.msg !== "Invalid value") { %>
+               <li><%= error.msg %></li>
+           <% } 
+       }) %>
+   </ul>
+ <% } %>
+  
+ <p>Confirm Deletion - This delete is permanent</p>
+  <%- deleteInvForm %>
+ 
+
+ 

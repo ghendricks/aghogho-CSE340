@@ -310,6 +310,79 @@ invCont.updateInventory = async function (req, res, next) {
     }
 }
 
+/**
+ * 
+ */
+invCont.buildDeleteInventory = async (req, res, next) => {
+
+    const inv_id = parseInt(req.params.inv_id)
+    const nav = await utilities.getNav()
+    const itemData = await invModel.getInventoryByInventoryId(inv_id)
+    const deleteInvForm = await utilities.buildDeleteInvForm(itemData[0])
+
+    const itemName = `${itemData[0].inv_make} ${itemData[0].inv_model}`
+
+    res.render("./inventory/delete-confirm", {
+        title: "Edit " + itemName,
+        nav,
+        deleteInvForm: deleteInvForm,
+        errors: null,
+        inv_id: itemData.inv_id,
+        inv_make: itemData.inv_make,
+        inv_model: itemData.inv_model,
+        inv_year: itemData.inv_year,
+        inv_price: itemData.inv_price
+    })
+}
+
+
+/**
+ * 
+ */
+invCont.deleteInventory = async function (req, res, next) {
+
+    req.body.inv_id = req.body.inv_id.replace("<label", "").replace("<label", "")
+
+    const {
+        inv_id, inv_make, inv_model, inv_year, inv_price} = req.body
+
+    
+
+    console.log("Inventory Controller: Delete iNVENTORY")
+    console.log(req.body)
+
+    const updateResult = await invModel.deleteInventory(inv_id)
+    
+    console.log(updateResult)
+
+    if (updateResult) {
+        const itemName = updateResult.inv_make + " " + updateResult.inv_model
+
+        req.flash("notice", `The ${itemName} was successfully deleted.`)
+        res.redirect("/inv/")
+    } else {
+        
+        const nav = await utilities.getNav()
+        const editInvForm = await utilities.buildDeleteInvForm(req.body)
+
+        const itemName = `${inv_make} ${inv_model}`
+
+        res.render("./inventory/delete-confirm", {
+            title: "Edit " + itemName,
+            nav,
+            editInvForm: editInvForm,
+            errors: null,
+            inv_id,
+            inv_make,
+            inv_model,
+            inv_year,
+            inv_price,
+        })
+    }
+}
+
+
+
 
 
 module.exports = invCont

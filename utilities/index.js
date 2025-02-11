@@ -329,4 +329,50 @@ Util.buildEditInvForm = async function(itemData) {
 }
 
 
+
+
+Util.buildDeleteInvForm = async function(itemData) {
+
+    console.log("\n\nEdit Inv Form")
+    console.log(itemData)
+    console.log("\n\n")
+
+    let data = await invModel.getClassifications()
+    let addInvForm;
+    
+    if (itemData && data.rows.length > 0) {
+
+        addInvForm = '<section id="inv-class">'
+
+        addInvForm += '<form id="inv-class-form" class="updateForm" action="/inv/delete" method="post">'
+
+        addInvForm += '<label for="inv_id" class="hidden-label"><span class="form-element">Inventory Make:</span></label>'
+        addInvForm += `<input type="hidden" name="inv_id" value=${itemData.inv_id} readonly>`
+
+        addInvForm += '<label for="inv_make"><span class="form-element">Inventory Make:</span></label>'
+        addInvForm += `<input type="text" id="inv_make" name="inv_make" required value=${itemData.inv_make} readonly>`
+
+        addInvForm += '<label for="inv_model"><span class="form-element">Inventory Model:</span></label>'
+        addInvForm += `<input type="text" id="inv_model" name="inv_model" required value=${itemData.inv_model} readonly>`
+
+        addInvForm += '<label for="inv_year"><span class="form-element">Inventory Year:</span></label>'
+        addInvForm += `<input type="text" id="inv_year" name="inv_year" minlength="4" maxlength="4" required value=${itemData.inv_year} readonly>`
+
+        addInvForm += '<label for="inv_price"><span class="form-element">Inventory Price:</span></label>'
+        addInvForm += `<input type="number" id="inv_price" name="inv_price" required value=${itemData.inv_price} readonly>`       
+
+        addInvForm += '<button type="submit" id="inv-class-button">Delete Vehicle</button>'
+
+        addInvForm += '</form>'
+
+        addInvForm += '</section>'
+
+        return addInvForm
+
+
+    }
+}
+
+
+
 module.exports = Util
