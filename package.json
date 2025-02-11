@@ -23,7 +23,7 @@
     "express-session": "^1.18.1",
     "express-validator": "^7.2.1",
     "jsonwebtoken": "^9.0.2",
-    "lodash": "^4.17.21",
+    "lodash": "^3.10.1",
     "pg": "^8.8.0"
   },
   "devDependencies": {
