@@ -213,7 +213,7 @@ Util.checkLogin = (req, res, next) => {
         console.log("LOGGEDIN IS " + res.locals.loggedin)
         next()
     } else {
-        req.flash("notice", "Please log in.")
+        req.flash("notice", "Please log in (Inside checkLogin) " + res.locals.loggedin)
         return res.redirect("/account/login")
     }
 }
