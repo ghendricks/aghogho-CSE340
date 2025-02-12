@@ -187,7 +187,7 @@ Util.checkJWTToken = (req, res, next) => {
             function (err, accountData) {
                 if (err) {
                     console.log("ERROR DURING LOGIN", err)
-                    req.flash("Please log in")
+                    req.flash("Please log in (Inside checkJWTToken) " + err.message)
                     res.clearCookie("jwt")
                     return res.redirect("/account/login")
                 }
