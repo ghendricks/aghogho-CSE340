@@ -222,11 +222,11 @@ Util.checkLogin = (req, res, next) => {
 /**
  * Build Account Management View
  */
-Util.buildAccountManagementView = async function(account_email) {
+Util.buildAccountManagementView = async function(userData) {
 
-    const userData = await accountModel.getUserInfo(account_email)
+    // const userData = await accountModel.getUserInfo(account_email)
+    // return '<p>You are logged in, ' + userData[0].account_firstname + '!</p>'
 
-    return '<p>You are logged in, ' + userData[0].account_firstname + '!</p>'
 
 }
 
@@ -376,6 +376,31 @@ Util.buildDeleteInvForm = async function(itemData) {
     }
 }
 
+/**
+ * Check for Admin or Employee
+ */
+Util.checkAdmin = (req, res, next) => {
+    const token = req.cookies.jwt
+
+    if (!token) {
+        req.flash("notice", "You must be logged in to access this page")
+        return res.redirect("/account/login")
+    }
+
+    try {
+        const accountData = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
+
+        if (accountData.account_type === "Employee" || accountData.account_type === "Admin") {
+            next()
+        } else {
+            req.flash("notice", "You do not have permission to access this page.")
+            return res.redirect("/account/management")
+        }
+    } catch {
+        req.flash("notice", "Invalid session. Please log in again")
+        return res.redirect("/account/login")
+    }
+}
 
 
 module.exports = Util

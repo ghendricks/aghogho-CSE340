@@ -16,34 +16,46 @@ router.get("/", utilities.handleErrors(invController.buildManagement))
 router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
 
 // Router to get add-inventory view
-router.get("/add-classification", utilities.handleErrors(invController.buildAddClassification))
+router.get("/add-classification", 
+    utilities.checkAdmin,
+    utilities.handleErrors(invController.buildAddClassification))
 
 router.post("/add-classification", 
+    utilities.checkAdmin,
     classValidate.addClassRules(),
     classValidate.checkClassData,
     utilities.handleErrors(invController.processAddClassification)
 )
 
-router.get("/add-inventory", utilities.handleErrors(invController.buildInventoryForm))
+router.get("/add-inventory", 
+    utilities.checkAdmin,
+    utilities.handleErrors(invController.buildInventoryForm))
 
 router.post("/add-inventory", 
+    utilities.checkAdmin,
     classValidate.insertDataRules(),
     classValidate.checkInsertData,
     utilities.handleErrors(invController.processAddInventory))
 
 
 
-router.get("/edit/:inv_id", utilities.handleErrors(invController.buildEditInventory))
+router.get("/edit/:inv_id", 
+    utilities.checkAdmin,
+    utilities.handleErrors(invController.buildEditInventory))
 
 router.post("/update/", 
+    utilities.checkAdmin,
     classValidate.insertDataRules(),
     classValidate.checkUpdateData,
     utilities.handleErrors(invController.updateInventory))
 
 
-router.get("/delete/:inv_id", utilities.handleErrors(invController.buildDeleteInventory))
+router.get("/delete/:inv_id", 
+    utilities.checkAdmin,
+    utilities.handleErrors(invController.buildDeleteInventory))
 
 router.post("/delete/", 
+    utilities.checkAdmin,
     utilities.handleErrors(invController.deleteInventory))
 
 

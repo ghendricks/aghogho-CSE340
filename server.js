@@ -18,6 +18,7 @@ const pool = require("./database/")
 const accountRoute = require("./routes/accountRoute")
 const bodyParser = require("body-parser")
 const cookieParser = require("cookie-parser")
+const jwt = require("jsonwebtoken")
 
 
 
@@ -57,6 +58,34 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // Cookie Parser
 app.use(cookieParser())
 
+// Middleware to check authentication and pass user info to views
+app.use((req, res, next) => {
+  const token = req.cookies.jwt;
+
+  if (token) {
+      try {
+          const userData = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+          
+          res.locals.clientLoggedIn = true;
+          res.locals.yourName = userData.account_firstname || "Basic";
+          res.locals.accountType = userData.account_type
+      } catch (err) {
+          res.locals.clientLoggedIn = false;
+          res.locals.yourName = "Guest";
+          res.locals.accountType = "Client"
+      }
+  } else {
+      res.locals.clientLoggedIn = false;
+      res.locals.yourName = "Guest";
+      res.locals.accountType = "Client"
+  }
+
+  console.log(`clientLoggedIn: ${res.locals.clientLoggedIn}, userName: ${res.locals.yourName},
+    accountType: ${res.locals.accontType}`);
+  next();
+});
+
+
 // JWT MiddleWare
 app.use(utilities.checkJWTToken)
 
@@ -67,6 +96,7 @@ app.use(utilities.checkJWTToken)
  * Routes
  *************************/
 app.use(static)
+
 
 // Index route
 app.get("/", utilities.handleErrors(baseController.buildHome))
@@ -79,6 +109,12 @@ app.use("/inv", inventoryRoute)
 
 // Account route
 app.use("/account", accountRoute)
+
+
+
+
+
+
 
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {

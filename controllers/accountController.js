@@ -122,7 +122,7 @@ async function processLogin(req, res) {
 
     const accountData = await accountModel.getAccountByEmail(account_email)
 
-    req.session.account_email = req.body.account_email
+    // req.session.account_email = req.body.account_email
 
     if (!accountData) {
         req.flash("notice", "Please check your credentials and try again.")
@@ -185,16 +185,25 @@ async function buildAccountManagement(req, res, next) {
     
     let nav = await utilities.getNav()
 
-    const account_email = req.session.account_email
+    // const account_email = req.session.account_email
+    // let userName = await utilities.buildAccountManagementView(account_email)
 
-    let userName = await utilities.buildAccountManagementView(account_email)
+    const token = req.cookies.jwt
 
-    res.render("account/management", {
-        title: "Account Management",
-        nav,
-        errors: null,
-        userName,
-    })
+    try {
+        const userData = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
+
+        
+        res.render("account/management", {
+            title: "Account Management",
+            nav,
+            errors: null,
+            // userName,
+        })
+    } catch (error) {
+
+    }
+   
 }
 
 
